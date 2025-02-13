@@ -203,7 +203,7 @@ class CheckpointManager:
             self.tape.timesteps[timestep - 1].checkpoint(
                 _store_checkpointable_state, _store_adj_dependencies, self._global_deps)
             # Remove unnecessary variables in working memory from previous steps.
-            for var in self.tape.timesteps[timestep - 1].checkpointable_state - self._global_deps:
+            for var in set(self.tape.timesteps[timestep - 1].checkpointable_state) - self._global_deps:
                 var._checkpoint = None
             for block in self.tape.timesteps[timestep - 1]:
                 for out in block.get_outputs():
