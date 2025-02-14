@@ -407,8 +407,8 @@ class CheckpointManager:
                 if not current_step._adj_deps_cleaned:
                     for out in block._outputs:
                         if not out.marked_in_path:
-                            set(current_step.adjoint_dependencies).discard(out)
-            current_step._adj_deps_cleaned = True
+                            current_step.adjoint_dependencies.remove(out)
+                    self._adj_deps_cleaned = True
             # Output variables are used for the last time when running
             # backwards.
             to_keep = set(current_step.checkpointable_state)
